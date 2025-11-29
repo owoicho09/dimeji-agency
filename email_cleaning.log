@@ -1,0 +1,57 @@
+2025-10-24 16:14:14,316 - INFO - Django setup successful
+2025-10-24 16:14:14,350 - INFO - Starting email cleaning process...
+2025-10-24 16:14:14,350 - INFO - Mode: LIVE CLEANING
+2025-10-24 16:14:14,353 - INFO - API validation: DISABLED
+2025-10-24 16:14:14,354 - INFO - Batch size: 1000
+2025-10-24 16:14:14,356 - INFO - Max workers: 4
+2025-10-24 16:14:14,366 - INFO - Found 7 leads with email addresses
+2025-10-24 16:14:14,371 - INFO - Processing batch 1 (7 leads)
+2025-10-24 16:14:14,532 - INFO - Email cleaning completed. Processed 7 leads.
+2025-10-24 16:14:14,533 - INFO - 
+============================================================
+2025-10-24 16:14:14,535 - INFO - EMAIL VALIDATION STATISTICS
+2025-10-24 16:14:14,537 - INFO - ============================================================
+2025-10-24 16:14:14,537 - INFO - Total processed: 7
+2025-10-24 16:14:14,539 - INFO - Valid emails: 7
+2025-10-24 16:14:14,539 - INFO - Corrected typos: 0
+2025-10-24 16:14:14,541 - INFO - Invalid format: 0
+2025-10-24 16:14:14,541 - INFO - Blacklisted: 0
+2025-10-24 16:14:14,542 - INFO - Suspicious TLD: 0
+2025-10-24 16:14:14,546 - INFO - Too long: 0
+2025-10-24 16:14:14,547 - INFO - MX record failed: 0
+2025-10-24 16:14:14,549 - INFO - Cleaned/removed: 0
+2025-10-24 16:14:14,550 - INFO - Valid email rate: 100.00%
+2025-10-24 16:14:14,551 - INFO - ============================================================
+2025-10-24 16:14:14,552 - INFO - 
+ EMAIL CLEANING COMPLETED
+2025-10-24 16:14:14,553 - INFO - Cleaned 0 invalid emails
+2025-10-24 16:14:14,554 - INFO - Corrected 0 typos
+2025-10-24 16:14:14,556 - ERROR -  Fatal error: No module named 'agent'
+2025-10-24 16:14:39,166 - INFO - Django setup successful
+2025-10-24 16:14:39,191 - INFO - Starting email cleaning process...
+2025-10-24 16:14:39,191 - INFO - Mode: LIVE CLEANING
+2025-10-24 16:14:39,192 - INFO - API validation: DISABLED
+2025-10-24 16:14:39,196 - INFO - Batch size: 1000
+2025-10-24 16:14:39,197 - INFO - Max workers: 4
+2025-10-24 16:14:39,207 - INFO - Found 7 leads with email addresses
+2025-10-24 16:14:39,212 - INFO - Processing batch 1 (7 leads)
+2025-10-24 16:14:39,313 - INFO - Email cleaning completed. Processed 7 leads.
+2025-10-24 16:14:39,313 - INFO - 
+============================================================
+2025-10-24 16:14:39,315 - INFO - EMAIL VALIDATION STATISTICS
+2025-10-24 16:14:39,316 - INFO - ============================================================
+2025-10-24 16:14:39,317 - INFO - Total processed: 7
+2025-10-24 16:14:39,318 - INFO - Valid emails: 7
+2025-10-24 16:14:39,319 - INFO - Corrected typos: 0
+2025-10-24 16:14:39,319 - INFO - Invalid format: 0
+2025-10-24 16:14:39,320 - INFO - Blacklisted: 0
+2025-10-24 16:14:39,321 - INFO - Suspicious TLD: 0
+2025-10-24 16:14:39,321 - INFO - Too long: 0
+2025-10-24 16:14:39,322 - INFO - MX record failed: 0
+2025-10-24 16:14:39,322 - INFO - Cleaned/removed: 0
+2025-10-24 16:14:39,323 - INFO - Valid email rate: 100.00%
+2025-10-24 16:14:39,323 - INFO - ============================================================
+2025-10-24 16:14:39,324 - INFO - 
+ EMAIL CLEANING COMPLETED
+2025-10-24 16:14:39,325 - INFO - Cleaned 0 invalid emails
+2025-10-24 16:14:39,325 - INFO - Corrected 0 typos
