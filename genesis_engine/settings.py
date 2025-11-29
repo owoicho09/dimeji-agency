@@ -33,7 +33,7 @@ SECRET_KEY = "django-insecure-n@ylalza#m4%9m1erk$91c0odp620%rj$c2o@kb7r!&1l$-01@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://dimeji-agency.onrender.com', 'dimeji-agency.onrender.com']
 
 
 # Application definition
