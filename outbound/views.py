@@ -20,9 +20,8 @@ from django.views.decorators.csrf import csrf_exempt
 logger = logging.getLogger(__name__)
 
 
-def index(request):
-    return HttpResponse("Outbound API is live 🚀")
-
+def home(request):
+    return HttpResponse("Genesis Engine running 🚀")
 
 
 @csrf_exempt

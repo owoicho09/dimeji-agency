@@ -4,12 +4,24 @@ from .models import *
 # Register your models here.
 
 
-
-
 class LeadAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'phone', 'source')
-    search_fields = ('website','email')  # Add any other fields you want to make searchable
-    ordering = ('-email',)
+    list_display = ('email','company','title','website', 'first_name', 'seo_description', 'country')
+    list_filter = ('email_sent', 'score', 'email_verified','intent', 'country')  # Use custom filter class here
+    search_fields = ('email',)  # Add any other fields you want to make searchable
+
+
+class EmailTemplateAdmin(admin.ModelAdmin):
+    list_display = ('name','prompt','subject','body')
+
+
+
+class LeadEmailCopyAdmin(admin.ModelAdmin):
+    list_display = ('lead_email','template_name','subject','body','sent')
+    search_fields = ('lead__email',)  # Add any other fields you want to make searchable
+    list_filter = ('sent',)  # Use custom filter class here
+
+    def lead_email(self, obj):
+        return obj.lead.email
 
 
 class WebsiteLeadAdmin(admin.ModelAdmin):
@@ -24,6 +36,9 @@ class VerifiedLeadAdmin(admin.ModelAdmin):
 
 
 admin.site.register(WebsiteLead,WebsiteLeadAdmin)
+admin.site.register(Lead,LeadAdmin)
+admin.site.register(EmailTemplate,EmailTemplateAdmin)
+admin.site.register(LeadEmailCopy,LeadEmailCopyAdmin)
 
 
 #admin.site.register(VerifiedLead,VerifiedLeadAdmin)

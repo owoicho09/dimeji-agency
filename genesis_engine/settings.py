@@ -24,6 +24,18 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+
+
+import dj_database_url
+import os
+
+
+
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
@@ -33,7 +45,7 @@ SECRET_KEY = "django-insecure-n@ylalza#m4%9m1erk$91c0odp620%rj$c2o@kb7r!&1l$-01@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://dimeji-agency.onrender.com', 'dimeji-agency.onrender.com']
+ALLOWED_HOSTS = ['https://dimeji-agency.onrender.com', 'dimeji-agency.onrender.com', '127.0.0.1']
 
 
 # Application definition
@@ -102,6 +114,26 @@ DATABASES = {
 }
 
 
+
+EMAIL_ACCOUNTS = [
+
+    {
+        "EMAIL_HOST": "smtp.gmail.com",
+        "EMAIL_PORT": 587,
+        "EMAIL_USE_TLS": True,
+        "EMAIL_HOST_USER": env("GMAIL_1"),
+        "EMAIL_HOST_PASSWORD": env("GMAIL_1_PASSWORD"),
+        "DISPLAY_NAME": "Michael O."
+
+    },
+
+
+
+]
+
+
+
+
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
@@ -158,17 +190,17 @@ CORS_ALLOW_CREDENTIALS = True
 # Jazzmin Settings
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
-    "site_title": "Genesis AI Admin",
+    "site_title": "ASD Admin",
     # Title on the login screen (19 chars max) (Will default to current_admin_site.site_header if absent or None)
-    "site_header": "Genesis x Dimeji",
+    "site_header": "ASD",
     # Title on the brand (19 chars max) (Will default to current_admin_site.site_header if absent or None)
-    "site_brand": "Genesis AI",
+    "site_brand": "ASD",
     # Logo to use for your site, must be present in static files, used for brand on top left
     "site_logo": None,
     # Welcome text on the login screen
-    "welcome_sign": "Welcome to Genesis AI",
+    "welcome_sign": "Welcome to ASD",
     # Copyright on the footer
-    "copyright": "Genesis AI Ltd",
+    "copyright": "ASD Ltd",
     # The model admin to search from the search bar, search bar omitted if excluded
     "search_model": "auth.User",
     # Field name on user model that contains avatar ImageField/URLField/Charfield or a callable that receives the user

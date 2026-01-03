@@ -17,28 +17,93 @@ class ICP(models.Model):
 
 
 class Lead(models.Model):
-    #icp = models.ForeignKey(ICP, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-    email = models.EmailField(blank=True, null=True)
-    phone = models.CharField(max_length=50,blank=True, null=True)
-    company = models.CharField(max_length=255,blank=True, null=True)
-    address = models.CharField(max_length=255,blank=True, null=True)
+    INTENT_CHOICES = [
+        ("HIGH", "High Intent (Agency / Consultancy)"),
+        ("MEDIUM", "Medium Intent (Service Business)"),
+        ("LOW", "Low Intent (Weak Fit)"),
+        ("REJECTED", "Rejected / Non-ICP"),
+    ]
+    # raw data from CSV
+    first_name = models.CharField(max_length=255, null=True, blank=True)
+    last_name = models.CharField(max_length=255, null=True, blank=True)
+    title = models.CharField(max_length=255, null=True, blank=True)
+    company = models.CharField(max_length=255, null=True, blank=True)
+    email = models.EmailField(max_length=255, null=True, blank=True)
+    email_status = models.CharField(max_length=255, null=True, blank=True)
+    seniority = models.CharField(max_length=255, null=True, blank=True)
+    departments = models.CharField(max_length=255, null=True, blank=True)
+    employees = models.IntegerField(null=True, blank=True)
+    industry = models.CharField(max_length=255, null=True, blank=True)
+    keywords = models.TextField(null=True, blank=True)
+    person_linkedin = models.URLField(null=True, blank=True)
+    company_linkedin = models.URLField(null=True, blank=True)
+    website = models.URLField(null=True, blank=True)
+    country = models.CharField(max_length=255, null=True, blank=True)
+    technologies = models.TextField(null=True, blank=True)
+    seo_description = models.TextField(null=True, blank=True)
 
-    website = models.URLField(blank=True, null=True)
-    linkedin_url = models.URLField(blank=True, null=True)
-    verified = models.BooleanField(default=False)
-    note = models.TextField(blank=True, null=True)
+    # scoring
+    score = models.BooleanField(default=False)
+    score_reason = models.TextField(null=True, blank=True)
+    email_sent = models.BooleanField(default=False)
+    followup_sent = models.BooleanField(default=False)
+    email_provider_used = models.CharField(max_length=50, null=True, blank=True)
+    processing = models.BooleanField(default=False)
+    ready_to_send = models.BooleanField(default=False)
 
-    intent_score = models.FloatField(default=0)
-    fit_score = models.FloatField(default=0)
+    email_verified = models.BooleanField(default=False)
+    intent = models.CharField(
+        max_length=10,
+        choices=INTENT_CHOICES,
+        default="REJECTED",
+        db_index=True
+    )
+    # process tracking
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    source = models.CharField(max_length=50,blank=True, null=True)
-    lead_id = ShortUUIDField(unique=True, length=7, max_length=20)
+    last_contacted = models.DateTimeField(null=True, blank=True)
+    replied = models.BooleanField(default=False)
+    bounce = models.BooleanField(default=False)
 
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} – {self.email}"
+
+
+
+class EmailTemplate(models.Model):
+    name = models.CharField(max_length=100)
+    prompt = models.TextField()  # GPT prompt for generating body
+    subject = models.CharField(max_length=255, null=True, blank=True)
+    body = models.TextField()  # optional: fallback body
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
+
+class LeadEmailCopy(models.Model):
+    lead = models.ForeignKey(Lead, on_delete=models.CASCADE, related_name="email_copies")
+    template_name = models.CharField(max_length=100)  # which template was used
+    subject = models.CharField(max_length=255)
+    body = models.TextField()  # the generated email content
+    ready_to_send = models.BooleanField(default=False)  # set True after generation
+    sent = models.BooleanField(default=False)  # set True after email is sent
+    sent_at = models.DateTimeField(null=True, blank=True)
+
+    # metrics for tracking performance
+    opened = models.BooleanField(default=False)
+    clicked = models.BooleanField(default=False)
+    replied = models.BooleanField(default=False)
+
+    # timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Lead Email Copy"
+        verbose_name_plural = "Lead Email Copies"
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.lead.first_name} {self.lead.last_name} | Template: {self.template_name}"
 
 
 
@@ -57,76 +122,4 @@ class WebsiteLead(models.Model):
 
 
 
-class VerifiedLead(models.Model):
-    #icp = models.ForeignKey(ICP, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-    email = models.EmailField(blank=True, null=True)
-    phone = models.CharField(max_length=50,blank=True, null=True)
-    website = models.URLField(blank=True, null=True)
 
-    company = models.CharField(max_length=255,blank=True, null=True)
-    address = models.CharField(max_length=255,blank=True, null=True)
-    lead_id = ShortUUIDField(unique=True, length=7, max_length=20)
-    source = models.CharField(max_length=50,blank=True, null=True)
-
-    personalization_note = models.TextField(blank=True, null=True)
-    intent_score = models.FloatField(default=0)
-    fit_score = models.FloatField(default=0)
-
-    stage = models.CharField(max_length=50, choices=[('first_touch','First Touch'),('follow_up','Follow Up'),('nurture','Nurture')], blank=True, null=True )
-    total_email_sent = models.FloatField(default=0)
-    sent = models.BooleanField(default=False)
-    date_sent = models.DateTimeField(blank=True, null=True)
-
-    opened = models.BooleanField(default=False)
-    opened_date = models.DateTimeField(blank=True, null=True)
-
-    replied = models.BooleanField(default=False)
-
-    email_provider_used = models.CharField(max_length=50, null=True, blank=True)
-
-
-    def __str__(self):
-        return self.name
-
-
-
-
-class Campaign(models.Model):
-    lead = models.ForeignKey(Lead, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-    description = models.TextField(blank=True, null=True)
-    start_date = models.DateTimeField(auto_now_add=True)
-    end_date = models.DateTimeField(blank=True, null=True)
-
-    campaign_id = ShortUUIDField(unique=True, length=7, max_length=20)
-
-    def __str__(self):
-        return f"{self.name} - {self.lead}"
-
-class OutboundMessage(models.Model):
-    lead = models.ForeignKey(VerifiedLead, on_delete=models.CASCADE)
-    #campaign = models.ForeignKey(Campaign, on_delete=models.CASCADE)
-    subject_line = models.CharField(max_length=100,blank=True, null=True)
-    body = models.TextField(max_length=200,blank=True, null=True)
-    stage = models.CharField(max_length=50, choices=[('first_touch','First Touch'),('follow_up','Follow Up'),('nurture','Nurture')])
-    sent = models.BooleanField(default=False)
-    sent_at = models.DateTimeField(blank=True, null=True)
-
-
-
-class ResponseTracking(models.Model):
-    message = models.ForeignKey(OutboundMessage, on_delete=models.CASCADE)
-    open_status = models.BooleanField(default=False)
-    replied = models.BooleanField(default=False)
-    response_text = models.TextField(blank=True, null=True)
-    response_time = models.DateTimeField(blank=True, null=True)
-
-
-
-class NurtureSequence(models.Model):
-    lead = models.ForeignKey(Lead, on_delete=models.CASCADE)
-    sequence_stage = models.IntegerField()
-    message_text = models.TextField()
-    completed = models.BooleanField(default=False)
-    sent_at = models.DateTimeField(blank=True, null=True)
