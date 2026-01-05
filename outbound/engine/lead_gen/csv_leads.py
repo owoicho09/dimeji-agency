@@ -10,14 +10,14 @@ print("🔧 Setting up Django environment...")
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../"))
 sys.path.insert(0, PROJECT_ROOT)
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "genesis_engine.settings")
 
 import django
 django.setup()
 
 print("✅ Django setup complete.")
 
-from system.models import Lead  # adjust if app name differs
+from outbound.models import Lead  # adjust if app name differs
 
 
 # ------------------------------------------
@@ -40,7 +40,6 @@ FIELD_MAP = {
     "Website": "website",
     "Country": "country",
     "Technologies": "technologies",
-    "SEO Description": "seo_description",
 }
 
 print("📄 Field mapping loaded.")
@@ -164,7 +163,7 @@ if __name__ == "__main__":
 
     input_file = os.path.join(
         PROJECT_ROOT,
-        "csv_json/MOCKMAPR - 50K Agency Owners (VERIFIED) - CLEANED - MOCKMAPR - 50K Agency Owners (VERIFIED) - apollo.csv"
+        "csv-json/apollo-contacts-saas-dimeji.csv"
     )
 
     import_csv_leads(input_file)

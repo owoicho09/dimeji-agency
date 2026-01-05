@@ -121,11 +121,38 @@ EMAIL_ACCOUNTS = [
         "EMAIL_HOST": "smtp.gmail.com",
         "EMAIL_PORT": 587,
         "EMAIL_USE_TLS": True,
-        "EMAIL_HOST_USER": env("GMAIL_1"),
-        "EMAIL_HOST_PASSWORD": env("GMAIL_1_PASSWORD"),
+        "EMAIL_HOST_USER": env("GMAIL_2"),
+        "EMAIL_HOST_PASSWORD": env("GMAIL_2_PASSWORD"),
         "DISPLAY_NAME": "Michael O."
 
     },
+
+    {
+        "EMAIL_HOST": "smtp.gmail.com",
+        "EMAIL_PORT": 587,
+        "EMAIL_USE_TLS": True,
+        "EMAIL_HOST_USER": env("GMAIL_3"),
+        "EMAIL_HOST_PASSWORD": env("GMAIL_3_PASSWORD"),
+        "DISPLAY_NAME": "Michael O."
+
+    },    {
+        "EMAIL_HOST": "smtp.gmail.com",
+        "EMAIL_PORT": 587,
+        "EMAIL_USE_TLS": True,
+        "EMAIL_HOST_USER": env("GMAIL_4"),
+        "EMAIL_HOST_PASSWORD": env("GMAIL_4_PASSWORD"),
+        "DISPLAY_NAME": "Michael O."
+
+    },    {
+        "EMAIL_HOST": "smtp.gmail.com",
+        "EMAIL_PORT": 587,
+        "EMAIL_USE_TLS": True,
+        "EMAIL_HOST_USER": env("GMAIL_5"),
+        "EMAIL_HOST_PASSWORD": env("GMAIL_5_PASSWORD"),
+        "DISPLAY_NAME": "Michael O."
+
+    },
+
 
 
 
